@@ -1,4 +1,4 @@
-# GPT-SoTYDE/TydeOShot
+# GPT-SoTYDE/Tyde0Shot
 Almost instant voice cloning
 
 This project was already on hf and was improved by me for colab and local
