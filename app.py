@@ -5,32 +5,29 @@ import zipfile
 import requests
 from TTS.api import TTS
 
-# Set the environment variable for Coqui TTS
+
 os.environ["COQUI_TOS_AGREED"] = "1"
 
-# Initialize the device
 device = "cuda"
 
-# Initialize the TTS model
 tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 
 def clone(text, url, language):
-    # Download the zip file from HF
     response = requests.get(url)
-    # Save the zip file to a temporary file
+
     with open("temp.zip", "wb") as f:
         f.write(response.content)
-    # Extract the zip file to the current directory
+
     with zipfile.ZipFile("temp.zip", "r") as zip_ref:
         zip_ref.extractall()
-    # Get the audio file path
+
     audio_file = [f for f in os.listdir(".") if f.endswith(".wav")][0]
-    # Use the audio file for voice cloning
+
     tts.tts_to_file(text=text, speaker_wav=audio_file, language=language, file_path="./output.wav")
-    # Delete the temporary files
+
     os.remove(audio_file)
     os.remove("temp.zip")
-    # Return the output file path
+
     return "./output.wav"
 
 iface = gr.Interface(fn=clone,
