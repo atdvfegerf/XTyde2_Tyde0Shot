@@ -44,4 +44,4 @@ iface = gr.Interface(fn=clone,
                      """,
                      theme=gr.themes.Base(primary_hue="teal", secondary_hue="teal", neutral_hue="slate"))
 
-iface.launch()
+iface.launch(share=True)
