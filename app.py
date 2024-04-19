@@ -6,30 +6,45 @@ import requests
 from TTS.api import TTS
 from pytube import YouTube
 
+
 os.environ["COQUI_TOS_AGREED"] = "1"
 
 device = "cuda"
 
 tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 
-def clone(text, url_or_text, language):
-    if url_or_text.startswith("https://www.youtube.com/"):
-        yt = YouTube(url_or_text)
-        stream = yt.streams.filter(only_audio=True).first()
-        stream.download(output_path=".", filename="temp")
-        audio_file = "temp.mp4"
-    else:
-        audio_file = url_or_text
+def clone(text, url, language):
+    response = requests.get(url)
+
+    with open("temp.zip", "wb") as f:
+        f.write(response.content)
+
+    with zipfile.ZipFile("temp.zip", "r") as zip_ref:
+        zip_ref.extractall()
+
+    audio_file = [f for f in os.listdir(".") if f.endswith(".wav")][0]
 
     tts.tts_to_file(text=text, speaker_wav=audio_file, language=language, file_path="./output.wav")
 
-    if url_or_text.startswith("https://www.youtube.com/"):
-        os.remove(audio_file)
+    os.remove(audio_file)
+    os.remove("temp.zip")
 
     return "./output.wav"
+    
+    def download_video(youtube_url, save_path):
+    try:
+        yt = YouTube(youtube_url)
+        stream = yt.streams.get_highest_resolution()
+        stream.download(output_path=save_path)
+        return f"Video scaricato correttamente in {save_path}"
+    except Exception as e:
+        return f"Si è verificato un errore durante il download: {str(e)}"
+
+def video_downloader(youtube_url, save_path):
+    return download_video(youtube_url, save_path)
 
 iface = gr.Interface(fn=clone,
-                     inputs=["text", gr.components.Text(label="URL or Text"), gr.Dropdown(choices=["en", "es", "fr", "de", "it", "ja", "zh-CN", "zh-TW"], label="Language")],
+                     inputs=["text", gr.components.Text(label="URL"), gr.Dropdown(choices=["en", "es", "fr", "de", "it", "ja", "zh-CN", "zh-TW"], label="Language")],
                      outputs=gr.Audio(type='filepath'),
                      title='Voice Clone',
                      description="""
@@ -38,5 +53,14 @@ iface = gr.Interface(fn=clone,
                     use this colab with caution <3.
                      """,
                      theme=gr.themes.Base(primary_hue="teal", secondary_hue="teal", neutral_hue="slate"))
+fn=video_downloader,
+    inputs=["text", "text"],
+    outputs="text",
+    title="YouTube Video Downloader",
+    description="Inserisci l'URL di un video di YouTube e la directory di destinazione per il download.",
+    article="This model downloads YouTube videos given their URL and destination path.",
+    example=[
+        ["https://www.youtube.com/watch?v=dQw4w9WgXcQ", "/content/"]
+
 
 iface.launch(share=True)
