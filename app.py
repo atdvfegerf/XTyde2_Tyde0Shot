@@ -4,7 +4,6 @@ import os
 import zipfile
 import requests
 from TTS.api import TTS
-from pytube import YouTube
 
 
 os.environ["COQUI_TOS_AGREED"] = "1"
@@ -30,18 +29,6 @@ def clone(text, url, language):
     os.remove("temp.zip")
 
     return "./output.wav"
-    
-    def download_video(youtube_url, save_path):
-    try:
-        yt = YouTube(youtube_url)
-        stream = yt.streams.get_highest_resolution()
-        stream.download(output_path=save_path)
-        return f"Video scaricato correttamente in {save_path}"
-    except Exception as e:
-        return f"Si è verificato un errore durante il download: {str(e)}"
-
-def video_downloader(youtube_url, save_path):
-    return download_video(youtube_url, save_path)
 
 iface = gr.Interface(fn=clone,
                      inputs=["text", gr.components.Text(label="URL"), gr.Dropdown(choices=["en", "es", "fr", "de", "it", "ja", "zh-CN", "zh-TW"], label="Language")],
@@ -53,14 +40,5 @@ iface = gr.Interface(fn=clone,
                     use this colab with caution <3.
                      """,
                      theme=gr.themes.Base(primary_hue="teal", secondary_hue="teal", neutral_hue="slate"))
-fn=video_downloader,
-    inputs=["text", "text"],
-    outputs="text",
-    title="YouTube Video Downloader",
-    description="Inserisci l'URL di un video di YouTube e la directory di destinazione per il download.",
-    article="This model downloads YouTube videos given their URL and destination path.",
-    example=[
-        ["https://www.youtube.com/watch?v=dQw4w9WgXcQ", "/content/"]
-
 
 iface.launch(share=True)
