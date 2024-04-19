@@ -4,7 +4,7 @@ import os
 import zipfile
 import requests
 from TTS.api import TTS
-
+from pytube import YouTube
 
 os.environ["COQUI_TOS_AGREED"] = "1"
 
@@ -12,26 +12,24 @@ device = "cuda"
 
 tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 
-def clone(text, url, language):
-    response = requests.get(url)
-
-    with open("temp.zip", "wb") as f:
-        f.write(response.content)
-
-    with zipfile.ZipFile("temp.zip", "r") as zip_ref:
-        zip_ref.extractall()
-
-    audio_file = [f for f in os.listdir(".") if f.endswith(".wav")][0]
+def clone(text, url_or_text, language):
+    if url_or_text.startswith("https://www.youtube.com/"):
+        yt = YouTube(url_or_text)
+        stream = yt.streams.filter(only_audio=True).first()
+        stream.download(output_path=".", filename="temp")
+        audio_file = "temp.mp4"
+    else:
+        audio_file = url_or_text
 
     tts.tts_to_file(text=text, speaker_wav=audio_file, language=language, file_path="./output.wav")
 
-    os.remove(audio_file)
-    os.remove("temp.zip")
+    if url_or_text.startswith("https://www.youtube.com/"):
+        os.remove(audio_file)
 
     return "./output.wav"
 
 iface = gr.Interface(fn=clone,
-                     inputs=["text", gr.components.Text(label="URL"), gr.Dropdown(choices=["en", "es", "fr", "de", "it", "ja", "zh-CN", "zh-TW"], label="Language")],
+                     inputs=["text", gr.components.Text(label="URL or Text"), gr.Dropdown(choices=["en", "es", "fr", "de", "it", "ja", "zh-CN", "zh-TW"], label="Language")],
                      outputs=gr.Audio(type='filepath'),
                      title='Voice Clone',
                      description="""
