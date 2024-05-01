@@ -24,7 +24,7 @@ Check the [Hugging Face Space 🤗](https://huggingface.co/spaces/AngeT10/GPT_So
 ## Guide Colab
 - Run "Clone and Install" and wait a few minutes, when a green check appears, it was successful
 - Run "Run" and when appears 2 link blue, prizes the second link "public link"
-- after opening the public link, follow (this guide)[]
+- after opening the public link, follow (this guide)[https://github.com/atdvfegerf/GPT-SoTyde_Tyde0Shot/blob/main/README.md#huggingfaceco-and-colab-gradio-guide]
 
   ## Huggingface.co and Colab gradio guide
   - in "the text to be said" put your text
