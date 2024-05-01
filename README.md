@@ -21,6 +21,20 @@ Check the [Hugging Face Space 🤗](https://huggingface.co/spaces/AngeT10/GPT_So
 
 
 
+## Guide Colab
+- Run "Clone and Install" and wait a few minutes, when a green check appears, it was successful
+- Run "Run" and when appears 2 link blue, prizes the second link "public link"
+- after opening the public link, follow (this guide)[]
+
+  ## Hugginface.co and Colab gradio guide
+  - in "the text to be said" put your text
+  - in "URL of the zip file with the dataset on hf.co (10 seconds is fine)!" put your link zip that you uploaded to hugginface, with your dataset inside
+  - in "Language" you can select the language of the text written before, or the language you want your character to speak
+  - now press submit and wait a few seconds, usually with a text about 40 characters long it takes 7/10 seconds in colab, 15/17/20 seconds in hugginface.co
+  - now your audio will have appeared in "output" which you can either listen to from gradio or install with the arrow
+
+
+
 ## Credits:
 - [hf space](https://huggingface.co/spaces/tonyassi/voice-clone)
 - [hf documentation](https://huggingface.co/coqui/XTTS-v2)
