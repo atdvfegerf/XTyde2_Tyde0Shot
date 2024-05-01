@@ -1,0 +1,111 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/atdvfegerf/GPT-SoTyde_Tyde0Shot/blob/main/GPT-SoTyde\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "vWQ9WD0LKmhj",
+        "outputId": "24c05919-f585-4265-af16-972762207d91"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Install Compelte\n"
+          ]
+        }
+      ],
+      "source": [
+        "#@title Clone and Install\n",
+        "!pip install gradio\n",
+        "!pip install torch\n",
+        "!pip install TTS\n",
+        "import codecs\n",
+        "import time\n",
+        "from IPython.display import clear_output, Javascript\n",
+        "\n",
+        "cloneme = codecs.decode('uggcf://tvguho.pbz/ngqisrtres/GlqrGGF_TCG-FbGLQR.tvg','rot_13')\n",
+        "runmain = codecs.decode('ncc.cl','rot_13')\n",
+        "install_path = \"GPT-SoTyde_Tyde0Shot\"\n",
+        "\n",
+        "!mkdir -p $install_path\n",
+        "\n",
+        "%cd $install_path\n",
+        "!git clone $cloneme .\n",
+        "clear_output()\n",
+        "print(\"Clone Complete\")\n",
+        "\n",
+        "clear_output()\n",
+        "print(\"Install Compelte\")\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "VSdC7Po2SQim",
+        "outputId": "51744490-9cb9-4346-8ae3-6a800c5d1f84"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            " > Downloading model to /root/.local/share/tts/tts_models--multilingual--multi-dataset--xtts_v2\n",
+            "100% 1.86G/1.87G [00:26<00:00, 83.5MiB/s]\n",
+            "100% 1.87G/1.87G [00:26<00:00, 69.3MiB/s]\n",
+            "100% 4.37k/4.37k [00:00<00:00, 8.80kiB/s]\n",
+            " 27% 99.3k/361k [00:00<00:00, 786kiB/s]\n",
+            "100% 361k/361k [00:00<00:00, 474kiB/s] \n",
+            "100% 32.0/32.0 [00:00<00:00, 46.6iB/s]\n",
+            " 69% 5.34M/7.75M [00:00<00:00, 52.2MiB/s] > Model's license - CPML\n",
+            " > Check https://coqui.ai/cpml.txt for more info.\n",
+            " > Using model: xtts\n",
+            "100% 7.75M/7.75M [00:11<00:00, 52.2MiB/s]Running on local URL:  http://127.0.0.1:7860\n",
+            "Running on public URL: https://4682e8209d9374812c.gradio.live\n",
+            "\n",
+            "This share link expires in 72 hours. For free permanent hosting and GPU upgrades, run `gradio deploy` from Terminal to deploy to Spaces (https://huggingface.co/spaces)\n"
+          ]
+        }
+      ],
+      "source": [
+        "#@title Run\n",
+        "!python $runmain --share\n"
+      ]
+    }
+  ],
+  "metadata": {
+    "accelerator": "GPU",
+    "colab": {
+      "gpuType": "T4",
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
