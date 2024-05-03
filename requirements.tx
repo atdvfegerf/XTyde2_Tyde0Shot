@@ -1,0 +1,6 @@
+gradio
+librosa
+moviepy
+nvidia-cudnn-cu110
+torch
+TTS
