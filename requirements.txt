@@ -1,5 +1,0 @@
-gradio
-librosa
-moviepy
-torch
-TTS
