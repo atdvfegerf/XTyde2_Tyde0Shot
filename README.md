@@ -28,7 +28,8 @@ Check the [Hugging Face Space 🤗](https://huggingface.co/spaces/AngeT10/GPT_So
 
   ## Huggingface.co and Colab gradio guide
   - in "text" put your text
-  - in "URL" (10 seconds is fine)!" put your link that you uploaded to hugginface, with your dataset, mp3,mp4,flac,wav or upload your file
+  - in "URL" (10 seconds is fine)!" put your link that you uploaded to hugginface, with your dataset, mp3,mp4,flac,wav
+  - or upload your file in "input file" ps: you have to reload the audio every time you do a conversion :( we are fixing it
   - in "Language" you can select the language of the text written before, or the language you want your character to speak
   - now press submit and wait a few seconds, usually with a text about 40 characters long it takes 7/10 seconds in colab, 15/17/20 seconds in huggingface.co
   - now your audio will have appeared in "output" which you can either listen to from gradio or install with the arrow
@@ -36,5 +37,5 @@ Check the [Hugging Face Space 🤗](https://huggingface.co/spaces/AngeT10/GPT_So
 
 
 ## Credits:
-- [hf space](https://huggingface.co/spaces/tonyassi/voice-clone)
+- [hf space](https://huggingface.co/spaces/tonyassi/voice-clone) 
 - [hf documentation](https://huggingface.co/coqui/XTTS-v2)
