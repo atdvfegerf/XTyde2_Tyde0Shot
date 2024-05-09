@@ -27,8 +27,8 @@ Check the [Hugging Face Space 🤗](https://huggingface.co/spaces/AngeT10/GPT_So
 - after opening the public link, follow [this guide](https://github.com/atdvfegerf/GPT-SoTyde_Tyde0Shot/blob/main/README.md#huggingfaceco-and-colab-gradio-guide)
 
   ## Huggingface.co and Colab gradio guide
-  - in "the text to be said" put your text
-  - in "URL of the zip file with the dataset on hf.co (10 seconds is fine)!" put your link that you uploaded to hugginface, with your dataset, mp3,mp4,flac,wav or upload your file
+  - in "text" put your text
+  - in "URL" (10 seconds is fine)!" put your link that you uploaded to hugginface, with your dataset, mp3,mp4,flac,wav or upload your file
   - in "Language" you can select the language of the text written before, or the language you want your character to speak
   - now press submit and wait a few seconds, usually with a text about 40 characters long it takes 7/10 seconds in colab, 15/17/20 seconds in huggingface.co
   - now your audio will have appeared in "output" which you can either listen to from gradio or install with the arrow
