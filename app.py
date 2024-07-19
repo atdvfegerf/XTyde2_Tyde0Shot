@@ -6,6 +6,10 @@ import zipfile
 from TTS.api import TTS
 from pydub import AudioSegment
 
+#download for mecab
+os.system('python -m unidic download')
+
+
 os.environ["COQUI_TOS_AGREED"] = "1"
 
 MODEL_PATH = "tts_models/multilingual/multi-dataset/xtts_v2"
@@ -19,24 +23,17 @@ tts = TTS(MODEL_PATH).to(device)
 
 def download_audio_file(url):
     try:
-        response = requests.get(url)
-        file_extension = os.path.splitext(url)[-1].lower()
-        file_name = f"temp{file_extension}"
+        response = requests.get(url, stream=True)
+        file_name = url.split("/")[-1]
+        file_extension = os.path.splitext(file_name)[-1].lower()
+        if file_extension not in AUDIO_FORMATS:
+            raise ValueError(f"Invalid audio file format: {file_extension}")
         with open(file_name, "wb") as f:
-            f.write(response.content)
+            f.write(response.content)  # Write the entire response content at once
         return file_name
     except requests.exceptions.RequestException as e:
         print(f"Error downloading audio file: {e}")
         return None
-
-def extract_zip_file(zip_file):
-    try:
-        with zipfile.ZipFile(zip_file, 'r') as zip_ref:
-            zip_ref.extractall()
-        return True
-    except zipfile.BadZipfile as e:
-        print(f"Error extracting zip file: {e}")
-        return False
 
 def convert_to_wav(input_audio_file):
     file_extension = os.path.splitext(input_audio_file)[-1].lower()
@@ -62,22 +59,14 @@ def clone(text, input_file, language, url=None, use_url=False):
     else:
         if input_file is None:
             return None
-        if input_file.name.endswith(".zip"):
-            if extract_zip_file(input_file):
-                input_audio_file = [f for f in os.listdir('.') if os.path.isfile(f) and f.endswith(tuple(AUDIO_FORMATS))]
-                if len(input_audio_file) == 1:
-                    input_audio_file = input_audio_file[0]
-                else:
-                    return "Error: Please select a single audio file from the extracted files."
-        else:
-            input_audio_file = input_file.name
+        input_audio_file = input_file.name
 
     output_file_path = synthesize_text(text, input_audio_file, language)
     return output_file_path
 
 iface = gr.Interface(
     fn=clone,
-    inputs=["text", gr.File(label="Input File", file_types=[".zip", *AUDIO_FORMATS]), gr.Dropdown(choices=LANGUAGES, label="Language"), gr.Text(label="URL"), gr.Checkbox(label="Use URL", value=False)],
+    inputs=["text", gr.File(label="Input File", file_types=AUDIO_FORMATS), gr.Dropdown(choices=LANGUAGES, label="Language"), gr.Text(label="URL"), gr.Checkbox(label="Use URL", value=False)],
     outputs=gr.Audio(type='filepath'),
     title='Voice Clone',
     description=""" by [Angetyde](https://youtube.com/@Angetyde?si=7nusP31nTumIkPTF) and [Tony Assi](https://www.tonyassi.com/ ) use this colab with caution <3. """,
